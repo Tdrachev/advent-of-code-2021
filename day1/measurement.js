@@ -4,15 +4,12 @@ fs.readFile("./input.txt", "utf-8", (err, data) => {
     console.log("Error in parsing file: " + err.message);
     return;
   }
-  let input = [];
-  for (let i of data.split("\n")) {
-    input.push(Number(i));
-  }
+  let input = data.split("\n");
 
   function number_of_increases(input) {
     let increases = 0;
     for (let i = 0; i < input.length; i++) {
-      input[i + 1] > input[i] ? increases++ : null;
+      Number(input[i + 1]) > Number(input[i]) ? increases++ : null;
     }
 
     return increases;
@@ -20,16 +17,14 @@ fs.readFile("./input.txt", "utf-8", (err, data) => {
 
   function sliding_number_of_increases(input) {
     let increases = 0;
-
     for (let i = 0; i < input.length; i++) {
-      let sumA = input[i] + input[i + 1] + input[i + 2];
-      let sumB = input[i + 1] + input[i + 2] + input[i + 3];
-      if (sumA == NaN || sumB == NaN) break;
-
-      sumB > sumA ? increases++ : null;
+      Number(input[i + 1]) + Number(input[i + 2]) + Number(input[i + 3]) >
+      Number(input[i]) + Number(input[i + 1]) + Number(input[i + 2])
+        ? increases++
+        : null;
     }
     return increases;
   }
-
+  console.log(number_of_increases(input));
   console.log(sliding_number_of_increases(input));
 });
